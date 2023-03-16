@@ -13,8 +13,12 @@ weatherRoute.get("/", async (req, res, next) => {
   try {
     const param = new URLSearchParams({ [API_BASE_NAME]: API_BASE_KEY, ...url.parse(req.url, true).query })
     const weatherRes = await needle("get", `${API_BASE_URL}?${param}`)
-    next()
-  } catch {}
+    console.log(weatherRes)
+    const weather = await weatherRes.json()
+    res.send(weather)
+  } catch(err) {
+      console.log(err)
+  }
 })
 
 //to handle loose paths
